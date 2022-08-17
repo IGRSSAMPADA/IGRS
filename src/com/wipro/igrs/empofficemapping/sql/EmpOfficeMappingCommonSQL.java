@@ -1,0 +1,21 @@
+package com.wipro.igrs.empofficemapping.sql;
+
+public class EmpOfficeMappingCommonSQL {
+	
+	public static final String SELECT_ALL_EMP_OFFICE_MAPPINGS = "SELECT " +
+			"empoffice.EMP_ID,emp.FIRST_NAME,emp.MIDDLE_NAME,emp.LAST_NAME," +
+			"empoffice.OFFICE_ID,office.OFFICE_NAME " +
+			"FROM " +
+			"IGRS_EMP_OFFICE_MAPPING empoffice,IGRS_EMP_MASTER emp,IGRS_OFFICE_MASTER office " +
+			"WHERE empoffice.EMP_ID  = emp.EMP_ID AND " +
+			"empoffice.OFFICE_ID = office.OFFICE_ID";
+	
+	public static final String  DELETE_EMP_OFFICE_MAPPING = "DELETE FROM IGRS_EMP_OFFICE_MAPPING WHERE EMP_ID = ?";
+	public static final String SELECT_EMP_BY_ID = "SELECT FIRST_NAME, MIDDLE_NAME, LAST_NAME FROM IGRS_EMP_MASTER WHERE EMP_ID = ?";
+	public static final String SELECT_MAPPING_BY_EMP_ID = "SELECT OFFICE_ID, ROLE_ID, DEPT_ID FROM IGRS_EMP_OFFICE_MAPPING WHERE EMP_ID = ?";
+	public static final String SELECT_ALL_DEPTS = "SELECT DEPT_ID, DEPT_NAME FROM IGRS_OFFICE_DEPT_MASTER";
+	public static final String SELECT_ALL_ROLES = "SELECT ROLE_ID, ROLE_NAME FROM IGRS_ROLE_MASTER";
+	public static final String SELECT_ALL_OFFICES = "SELECT OFFICE_ID, OFFICE_NAME FROM IGRS_OFFICE_MASTER";
+	public static final String INSERT_EMP_OFFICE_MAPPING = "INSERT INTO IGRS_EMP_OFFICE_MAPPING(EMP_ID, OFFICE_ID) VALUES(?,?)";
+	public static final String UPDATE_EMP_OFFICE_MAPPING = "UPDATE IGRS_EMP_OFFICE_MAPPING SET OFFICE_ID=? WHERE EMP_ID = ?";
+}

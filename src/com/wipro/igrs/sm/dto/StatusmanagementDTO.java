@@ -1,0 +1,205 @@
+/*
+ * Copyright Notice
+ *==============================================================================
+ * This file contains proprietary information of Wipro Infotech, Bangalore.
+ * Copying or reproduction without prior written approval is prohibited.
+ * Copyright (c) 2007-08
+ *==============================================================================
+ *
+ * File Name   :   StatusmanagementDTO.java
+ * Author      :   Mallikarjun.M 
+ * Description :   Represents the DTO Class for Status Management.
+ * ----------------------------------------------------------------------------
+ * Version         Modified By     Modified On           Modification
+ * ----------------------------------------------------------------------------
+ * 1.0             Mallikarjun.M  24th March, 2008	 		 
+ * --------------------------------------------------------------------------------
+ */
+
+package com.wipro.igrs.sm.dto;
+
+import java.util.ArrayList;
+
+public class StatusmanagementDTO {
+	public StatusmanagementDTO() {
+
+	}
+
+	private String eno;
+	private String firstName;
+	private String lastName;
+	private String location;
+	private String designation;
+	private String currentStatus;
+	private String rpassword;
+	private String pageName;
+	private String name;
+	private String value;
+	ArrayList statusList;
+
+	/**
+	 * @return Returns the eno.
+	 */
+	public String getEno() {
+		return eno;
+	}
+
+	/**
+	 * @param eno
+	 *            The eno to set.
+	 */
+	public void setEno(String eno) {
+		this.eno = eno;
+	}
+
+	/**
+	 * @return Returns the location.
+	 */
+	public String getLocation() {
+		return location;
+	}
+
+	/**
+	 * @param eno
+	 *            The location to set.
+	 */
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	/**
+	 * @return Returns the designation.
+	 */
+	public String getDesignation() {
+		return designation;
+	}
+
+	/**
+	 * @param designation
+	 *            The designation to set.
+	 */
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	/**
+	 * @return Returns the currentStatus.
+	 */
+	public String getCurrentStatus() {
+		return currentStatus;
+	}
+
+	/**
+	 * @param currentStatus
+	 *            The currentStatus to set.
+	 */
+	public void setCurrentStatus(String currentStatus) {
+		this.currentStatus = currentStatus;
+	}
+
+	/**
+	 * @return Returns the rpassword.
+	 */
+	public String getRpassword() {
+		return rpassword;
+	}
+
+	/**
+	 * @param rpassword
+	 *            The rpassword to set.
+	 */
+	public void setRpassword(String rpassword) {
+		this.rpassword = rpassword;
+	}
+
+	/**
+	 * @return Returns the pageName.
+	 */
+	public String getPageName() {
+		return pageName;
+	}
+
+	/**
+	 * @param pageName
+	 *            The pageName to set.
+	 */
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
+	}
+
+	/**
+	 * @return Returns the firstName.
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * @param firstName
+	 *            The firstName to set.
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	/**
+	 * @return Returns the lastName.
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * @param lastName
+	 *            The lastName to set.
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	/**
+	 * @return Returns the statusList.
+	 */
+	public ArrayList getStatusList() {
+		return statusList;
+	}
+
+	/**
+	 * @param statusList
+	 *            The statusList to set.
+	 */
+	public void setStatusList(ArrayList statusList) {
+		this.statusList = statusList;
+	}
+
+	/**
+	 * @return Returns the name.
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            The name to set.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return Returns the value.
+	 */
+	public String getValue() {
+		return value;
+	}
+
+	/**
+	 * @param value
+	 *            The value to set.
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+}

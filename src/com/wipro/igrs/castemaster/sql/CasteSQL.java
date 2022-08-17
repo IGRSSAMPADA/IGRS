@@ -1,0 +1,48 @@
+/**
+ * 
+ */
+package com.wipro.igrs.castemaster.sql;
+
+/**
+ * @author HMOHAM
+ *
+ */
+public interface CasteSQL {
+	
+	
+	String CASTE_TABLE_NAME = "IGRS_CASTE_MASTER";
+	
+	public static final String INSERT_CASTE = "INSERT INTO IGRS_CASTE_MASTER(" +
+			"CASTE_ID, CASTE_NAME, CASTE_STATUS, CREATED_BY, CREATED_DATE, UPDATED_BY, UPDATED_DATE, CATEGORY_ID) VALUES (" +
+			"IGRS_CASTE_MASTER_SEQ.nextVal, ?,               'A',           ?,         SYSDATE,        ?,  SYSDATE,         ?)";
+	
+	String GET_ALL_CASTES = "SELECT CASTE_ID, CASTE_NAME, cast.CREATED_BY, cast.UPDATED_BY, cast.CATEGORY_ID, CASTE_STATUS, CATEGORY_NAME, cast.CREATED_DATE, cast.UPDATED_DATE" +
+			" FROM IGRS_CASTE_MASTER cast, IGRS_PERSON_CATEGORY_MASTER category" +
+			" WHERE cast.CATEGORY_ID = category.CATEGORY_ID " +
+			" AND cast.CASTE_STATUS <> 'R'";
+	
+	String GET_BY_ID = "SELECT CASTE_ID, CASTE_NAME, cast.CREATED_BY, cast.UPDATED_BY, cast.CATEGORY_ID, CASTE_STATUS, CATEGORY_NAME, cast.CREATED_DATE, cast.UPDATED_DATE" +
+	" FROM IGRS_CASTE_MASTER cast, IGRS_PERSON_CATEGORY_MASTER category" +
+	" WHERE CASTE_ID = ? AND " +
+	" cast.CATEGORY_ID = category.CATEGORY_ID";
+	
+	String DELETE_CASTE = "UPDATE IGRS_CASTE_MASTER " +
+			"SET CASTE_STATUS = 'R', " +
+			"UPDATED_BY = ?, " +
+			"UPDATED_DATE = SYSDATE " +
+			" WHERE CASTE_ID = ?";
+
+	String GET_BY_NAME = "SELECT CASTE_ID, CASTE_NAME, cast.CREATED_BY, cast.UPDATED_BY, cast.CATEGORY_ID, CASTE_STATUS, cast.CREATED_DATE, cast.UPDATED_DATE" +
+	" FROM IGRS_CASTE_MASTER cast, IGRS_PERSON_CATEGORY_MASTER category" +
+	" WHERE CASTE_NAME = ? AND " +
+	" cast.CATEGORY_ID = category.CATEGORY_ID";
+	
+	String UPDATE_CASTE = "UPDATE IGRS_CASTE_MASTER SET " +
+			"UPDATED_BY = ?, " +
+			"CASTE_NAME = ?, " +
+			"CASTE_STATUS = ?, " +
+			"CATEGORY_ID = ?, " + 
+			"UPDATED_DATE = SYSDATE " +
+			
+			" WHERE CASTE_ID = ?";
+}

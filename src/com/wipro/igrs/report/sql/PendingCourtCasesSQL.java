@@ -1,0 +1,135 @@
+package com.wipro.igrs.report.sql;
+
+public class PendingCourtCasesSQL {
+
+	
+	 public PendingCourtCasesSQL() {
+	    }
+
+	 public static final String PENDING_COURT_CASES_DETAILS ="SELECT DISTINCT CTD.CREATED_DATE , CTD.CASE_TXN_ID , CTD.REGISTRATION_ID , CTD.CASE_TYPE_ID ,CTD.CASE_ACTION_ID ,"+
+	 "CTD.CREATED_BY,RTD.REGISTRATION_NUMBER , RTD.REG_TXN_ID ,CTM.CASE_TYPE_NAME,URD.USER_ID , CAM.CASE_ACTION_NAME , CAMP.AUTH_DEC_FLAG " +
+	"FROM IGRS_CASE_TXN_DETAILS CTD , " +
+	  "IGRS_REG_TXN_DETLS RTD , " +
+	      "IGRS_CASE_TYPE_MASTER CTM ,"+
+	      "IGRS_USER_REG_DETAILS URD ,"+
+	      "IGRS_CASE_ACTION_MASTER CAM ,"+
+	      "IGRS_CASE_ACTION_MAP CAMP ,"+
+	      "IGRS_CASE_TXN_COMMENTS CTC "+
+	  
+         " WHERE CTD.REGISTRATION_ID=RTD.REGISTRATION_NUMBER  AND "+
+	 " CTD.CASE_TYPE_ID=CTM.CASE_TYPE_ID AND "+
+	 " CTD.CREATED_BY=URD.USER_ID AND CAM.CASE_ACTION_ID=CTD.CASE_ACTION_ID AND "+
+	 " CAMP.CASE_ACTION_ID=CTD.CASE_ACTION_ID AND CTD.CASE_ACTION_ID='CASE_009' AND "+
+	 " CTD.CREATED_DATE BETWEEN TO_DATE(?,'DD/MM/YYYY') AND TO_DATE(?,'DD/MM/YYYY')+1 ";
+	  
+	  
+	 public static final String PENDING_COURT_CASES_DETAILS1 = "SELECT DISTINCT  RTPD.PARTY_FIRST_NAME||RTPD.PARTY_MIDDLE_NAME||RTPD.PARTY_LAST_NAME NAME, RTD.REG_TXN_ID,RTD.REGISTRATION_NUMBER"+
+     " FROM IGRS_REG_TXN_PARTY_DETLS RTPD ,IGRS_REG_TXN_DETLS RTD "+
+     " WHERE RTD.REGISTRATION_NUMBER =? AND RTPD.REG_TXN_ID=RTD.REG_TXN_ID ";
+
+
+	 public static final String PENDING_COURT_CASES_DETAILS2 = "SELECT A.USER_COMMENTS " +
+	 		" FROM IGRS_CASE_TXN_COMMENTS A,IGRS_CASE_TXN_DETAILS B " +
+	 		" WHERE A.CASE_ACTION_ID=B.CASE_ACTION_ID AND A.CASE_TXN_ID=? " +
+	 		" AND A.USER_COMMENTS IS NOT NULL AND A.CASE_TXN_ID=B.CASE_TXN_ID " ;
+	 
+	 public static final String CESS_MUNICIPAL_CORPORATION_DUTY_DURATION=" SELECT RTD.REG_TXN_ID FROM IGRS_REG_TXN_DETLS RTD " +
+	 		" WHERE RTD.REGISTRATION_NUMBER IS NOT NULL AND RTD.UPDATE_DATE BETWEEN TO_DATE(?,'MM/YYYY') AND TO_DATE(?,'MM/YYYY') ";
+	 
+	 public static final String CESS_MUNICIPAL_CORPORATION_DUTY_MONTH=" SELECT RTD.REG_TXN_ID FROM IGRS_REG_TXN_DETLS RTD " +
+	 		" WHERE RTD.REGISTRATION_NUMBER IS NOT NULL AND TO_CHAR(RTD.UPDATE_DATE,'MM/YYYY') = ? ";
+//rachita bug
+	 public static final String CESS_MUNICIPAL_CORPORATION_DUTY_DURATION1=" Select count(STAMP_DUTY),count(GRAM_DUTY), (NVL(sum(STAMP_DUTY),0)) , (NVL(sum(GRAM_DUTY),0)) , (NVL(sum(NAGAR_DUTY),0)) , (NVL(sum(UPKAR),0)) ,(NVL(sum(REG_FEE),0)) " +
+             " from IGRS_REG_CHK_STAMP_DUTY_DTLS RCSDD  " +
+             " WHERE REG_TXN_ID IN(SELECT RTD.REG_TXN_ID FROM IGRS_REG_TXN_DETLS RTD WHERE RTD.REGISTRATION_NUMBER "+
+             "  IS NOT NULL AND RTD.UPDATE_DATE BETWEEN TO_DATE(?,'MM/YYYY') AND TO_DATE(?,'MM/YYYY'))" ;
+
+	 public static final String CESS_MUNICIPAL_CORPORATION_DUTY_MONTH1="SELECT COUNT(STAMP_DUTY),COUNT(GRAM_DUTY),(NVL(SUM(STAMP_DUTY),0)),(NVL(SUM(GRAM_DUTY),0)),(NVL(SUM(NAGAR_DUTY),0)),(NVL(SUM(UPKAR),0)),(NVL(SUM(REG_FEE),0))"
+             +" FROM IGRS_REG_CHK_STAMP_DUTY_DTLS RCSDD"
+            +" WHERE REG_TXN_ID IN(SELECT RTD.REG_TXN_ID FROM IGRS_REG_TXN_DETLS RTD WHERE RTD.REGISTRATION_NUMBER"
+             +" IS NOT NULL AND TO_CHAR(RTD.UPDATE_DATE,'MM/YYYY')=?)";
+
+	 public static final String DISTRICT_QRY=  "SELECT DISTRICT_ID, DISTRICT_NAME,H_DISTRICT_NAME FROM IGRS_DISTRICT_MASTER " +
+     "WHERE STATE_ID ='1' AND DISTRICT_STATUS ='A'";
+	 
+	 
+	 //added by rachita
+	 //added by rachita
+	 public static final String INSERT_COMPARATIVE =  " INSERT INTO IGRS_TARGET" + "(FINANCIAL_YEAR,JANUARY,FEBRUARY,MARCH, " +
+    	     " APRIL,MAY,JUNE,JULY,AUGUST,SEPTEMBER,OCTOBER,NOVEMBER,DECEMBER,CREATEDBY,CREATEDDATE,UPDATEDBY,UPDATEDDATE,DISTRICT,JANUARY_C,FEBRUARY_C,MARCH_C, "+
+    	     " APRIL_C,MAY_C,JUNE_C,JULY_C,AUGUST_C,SEPTEMBER_C,OCTOBER_C,NOVEMBER_C,DECEMBER_C) "+
+    	      " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,sysdate,?,sysdate,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	 
+	 public static final String UPDATE_COMPARATIVE = "UPDATE IGRS_TARGET SET " + " JANUARY=?,FEBRUARY=?,MARCH=?,APRIL=?,MAY=?,JUNE=?,JULY=?,AUGUST=?,SEPTEMBER=?," +
+	 " OCTOBER=?,NOVEMBER=?,DECEMBER=?,UPDATEDBY=?,UPDATEDDATE=sysdate, " +
+	 " JANUARY_C=?,FEBRUARY_C=?,MARCH_C=?,APRIL_C=?,MAY_C=?,JUNE_C=?,JULY_C=?,AUGUST_C=?,SEPTEMBER_C=?,OCTOBER_C=?,NOVEMBER_C=?,DECEMBER_C=? "+
+	 " WHERE DISTRICT=? AND FINANCIAL_YEAR=? " ;
+	 
+	 public static final String VIEW_CREATE_TARGET = "SELECT * "+  
+     " FROM IGRS_TARGET where DISTRICT=? AND FINANCIAL_YEAR=? ";
+	 
+	 public static final String VIEW_COMPARATIVE = "SELECT JANUARY,FEBRUARY,MARCH,"+  
+     "APRIL,MAY,JUNE,JULY,AUGUST,SEPTEMBER,OCTOBER,NOVEMBER,DECEMBER ,JANUARY_C,FEBRUARY_C,MARCH_C, " +
+     "APRIL_C,MAY_C,JUNE_C,JULY_C,AUGUST_C,SEPTEMBER_C,OCTOBER_C,NOVEMBER_C,DECEMBER_C FROM IGRS_TARGET where DISTRICT=? AND FINANCIAL_YEAR=?";
+	
+     // Added by rachita For comparative figures of revenue receipts
+	 
+	 public static final String VIEW_COMPARATIVE_FIGURES=" SELECT JANUARY ,FEBRUARY,MARCH,APRIL,MAY,JUNE,JULY,AUGUST,SEPTEMBER,OCTOBER,NOVEMBER,DECEMBER,DISTRICT,FINANCIAL_YEAR FROM IGRS_TARGET " +
+	 " WHERE FINANCIAL_YEAR BETWEEN ? AND ? " +
+	 " AND DISTRICT=? ";
+	 
+	 public static final String VIEW_PROG_ACHIVEMENT =  " SELECT   d , sum(S) FROM " +
+		 												" (SELECT d, sum(net_amount) S FROM "+
+    	      " (SELECT TO_CHAR(CREATED_DATE,'MON/yyyy') as d ,net_amount "+
+    	   " FROM igrs_payment_mode_details "+
+    	     " WHERE district_id=?  and (CREATED_DATE BETWEEN TO_DATE(?,'MON/YYYY') AND TO_DATE(?,'MON/YYYY')+1) )"+
+    	     " group by d   "+
+    	   " union "+
+    	" SELECT d, sum(CHALLAN_AMOUNT) S FROM ( " +
+    	" SELECT TO_CHAR(CHALLAN_ONLINE_DATE,'MON/yyyy') as d ,CHALLAN_AMOUNT "+
+        " FROM igrs_payment_ECHALLAN_DETAILS "+
+        " WHERE district_id=?  and (CHALLAN_ONLINE_DATE BETWEEN TO_DATE(?,'MON/YYYY') AND TO_DATE(?,'MON/YYYY')+1) )"+
+     " group by d )"+
+  " group by d  order by d " ;
+	         
+//Added by Shreeraj
+	 public static final String VIEW_CUMULATIVE_COMPARATIVE_FIGURES="select APRIL_C,MAY_C,JUNE_C,JULY_C,AUGUST_C,"+
+	 																"SEPTEMBER_C,OCTOBER_C,NOVEMBER_C,DECEMBER_C ,JANUARY_C,FEBRUARY_C, "+
+	 																"MARCH_C from IGRS_TARGET where FINANCIAL_YEAR=? and DISTRICT=?";
+	       
+	          
+    	         
+	 public static final String VIEW_PROGRESSIVE_ACHIEVEMENT="SELECT  months,NVL(SUM(CASH+CHALLAN),'0') as prog_Achievment FROM "+
+	 														"( "+
+	 														"SELECT to_char(A.CREATED_DATE,'mm') as months, SUM(A.NET_AMOUNT) AS CASH,0 AS CHALLAN "+
+	 														"FROM IGRS_PAYMENT_MODE_DETAILS A,IGRS_TARGET B WHERE A.DISTRICT_ID=B.DISTRICT AND A.DISTRICT_ID=? "+
+	 														"and A.CREATED_DATE between TO_DATE(?,'MONTH/YYYY') AND TO_DATE(?,'MONTH/YYYY') "+
+	 														"GROUP BY to_char(A.CREATED_DATE,'mm') "+
+	 														"union all "+
+	 														"SELECT to_char(A.CREATED_DATE,'mm') as months,0 AS CASH,SUM(A.CHALLAN_AMOUNT) AS CHALLAN "+
+	 														"FROM IGRS_PAYMENT_ECHALLAN_DETAILS A,IGRS_TARGET B WHERE A.DISTRICT_ID=B.DISTRICT AND A.DISTRICT_ID=? "+
+	 														"and A.CREATED_DATE between TO_DATE(?,'MONTH/YYYY') AND TO_DATE(?,'MONTH/YYYY') "+
+	 														"GROUP BY to_char(A.CREATED_DATE,'mm')) "+
+	 														"group by months "+
+	 														"order by months ";        
+    	         
+	 public static final String VIEW_TARGETS_COMP="select a.sumcurr,round(((b.sumprv-a.sumcurr)/b.sumprv)*100,2) from "+
+	 										   	"(select APRIL_C+MAY_C+JUNE_C+JULY_C+AUGUST_C+SEPTEMBER_C+OCTOBER_C+"+
+	 										   	"NOVEMBER_C+DECEMBER_C +JANUARY_C+FEBRUARY_C+MARCH_C as sumcurr from IGRS_TARGET "+
+	 										   	"where FINANCIAL_YEAR=? and DISTRICT=?) a,"+
+	 										   	"( select APRIL_C+MAY_C+JUNE_C+JULY_C+AUGUST_C+SEPTEMBER_C+OCTOBER_C+NOVEMBER_C+"+
+	 										   	"DECEMBER_C +JANUARY_C+FEBRUARY_C+MARCH_C as sumprv from IGRS_TARGET "+
+	 										   	"where FINANCIAL_YEAR=? and DISTRICT=?) b";	          
+    	          
+    	          
+    	          
+    	          
+    	        
+    	   
+    	       
+
+	  
+	 
+	
+	 
+}

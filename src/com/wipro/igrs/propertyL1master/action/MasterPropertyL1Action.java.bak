@@ -1,0 +1,33 @@
+package com.wipro.igrs.propertyL1master.action;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import com.wipro.igrs.propertyL1master.bd.MasterPropertyL1BD;
+import com.wipro.igrs.propertyL1master.form.MasterPropertyL1Form;
+
+public class MasterPropertyL1Action extends Action {
+	public ActionForward execute(ActionMapping mapping, ActionForm form, 
+            HttpServletRequest request,HttpServletResponse response) throws Exception {
+		MasterPropertyL1Form masterl1PropertyForm = (MasterPropertyL1Form)form;
+		MasterPropertyL1BD masterl1PropertyBD = new MasterPropertyL1BD();
+		if(masterl1PropertyForm.getPageNameL1().equalsIgnoreCase("createL1"))
+		{
+			masterl1PropertyBD.addpropertyL1master(masterl1PropertyForm);	
+		}
+		else
+		{
+			masterl1PropertyBD.updatepropertyL1master(masterl1PropertyForm);
+		}
+		String forward = "success";
+		HttpSession session = request.getSession();
+		session.setAttribute("MasterPropertyL1Form", masterl1PropertyForm);
+		return mapping.findForward(forward);
+	}
+}
